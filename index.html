@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guisso Style Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url("https://fonts.googleapis.com/css?family=Didact+Gothic&amp;display=swap");
+
+    @font-face {
+      font-family: 'Oferta do Dia';
+      src: url('https://raw.githubusercontent.com/fguisso/Oferta-do-Dia/refs/heads/main/fonts/Oferta-do-Dia.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --color-bg: #121212;
+      --color-fg: #f4f4f4;
+      --color-accent: #00FF7F;
+      --color-secondary: #9A1AFF;
+      --color-highlight: #6E6EFF;
+      --color-muted: #475569;
+      --border-radius: 0.5rem;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+    }
+
+    h1, h2 {
+      font-family: 'Oferta do Dia';
+      line-height: 1.2;
+    }
+
+    .glow-divider {
+      position: relative;
+    }
+    .glow-divider::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,255,127,0) 0%, rgba(0,255,127,0.2) 25%, rgba(154,26,255,0.4) 50%, rgba(110,110,255,0.2) 75%, rgba(0,255,127,0) 100%);
+    }
+
+    .glow-box, .btn {
+      border-radius: var(--border-radius);
+    }
+
+    .glow-box {
+      position: relative;
+      border: 1px solid var(--color-muted);
+      background-color: #1a1a1a;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .glow-box::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -50px;
+      top: -50px;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    .glow-box::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -100px;
+      bottom: -50px;
+      background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    .glow-box * {
+      position: relative;
+      z-index: 1;
+    }
+
+    input, textarea, select {
+      padding: 0.5rem;
+      width: 100%;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      right: -20px;
+      top: -20px;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(20px);
+      z-index: 0;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      right: -40px;
+      bottom: -20px;
+      background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(20px);
+      z-index: 0;
+    }
+
+    .btn * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      background-color: transparent;
+      color: var(--color-fg);
+      position: relative;
+      border: 1px solid var(--color-muted);
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: destination-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .btn-primary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--color-muted);
+      color: var(--color-fg);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .btn-accent {
+      background-color: var(--color-accent);
+      color: black;
+      border: none;
+    }
+
+    .btn-accent:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(0, 255, 127, 0.1);
+    }
+
+    .btn-ghost {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--color-fg);
+      border: 1px solid transparent;
+      position: relative;
+    }
+
+    .btn-ghost::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: destination-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .btn-ghost:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-secondary) 50%, var(--color-highlight) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.125rem;
+    }
+
+    .btn-icon {
+      padding: 0.5rem;
+      border-radius: 9999px;
+    }
+
+    .btn-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .menu {
+      position: relative;
+      display: inline-block;
+    }
+
+    .menu-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      color: var(--color-fg);
+      border: 1px solid var(--color-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu-button:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .menu-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 200px;
+      background-color: #1a1a1a;
+      border: 1px solid var(--color-muted);
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .menu-dropdown::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: destination-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .menu:hover .menu-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: calc(var(--border-radius) - 0.25rem);
+      color: var(--color-fg);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 4rem 0;
+    }
+
+    .hero-content {
+      max-width: 500px;
+    }
+
+    .hero-canvas {
+      position: relative;
+      aspect-ratio: 1;
+      background-color: transparent;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      cursor: auto;
+    }
+
+    .hero-canvas::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -50px;
+      top: -50px;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(40px);
+      animation: float 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .hero-canvas::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -100px;
+      bottom: -50px;
+      background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(40px);
+      animation: float 6s ease-in-out infinite reverse;
+      z-index: 1;
+    }
+
+    #heroCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+</head>
+<body class="bg-[var(--color-bg)] text-[var(--color-fg)] antialiased px-6 py-12">
+  <div class="max-w-6xl mx-auto space-y-24">
+    <nav class="flex justify-between items-center">
+      <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 849.6 329.92" class="h-8">
+          <defs>
+            <style>
+              text {
+                font-size: 296.85px;
+                font-family: DidactGothic-Regular, Didact Gothic;
+              }
+              #logo:is(.dark *) {
+                fill: #fff;
+              }
+            </style>
+          </defs>
+          <g id="logo">
+            <text transform="translate(5.52 250.66)">guisso</text>
+            <polygon points="60.34 198.02 84.8 150.91 107.45 198.02 60.34 198.02"></polygon>
+            <polygon points="741.17 161.02 765.63 208.13 788.28 161.02 741.17 161.02"></polygon>
+          </g>
+        </svg>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#" class="text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors whitespace-nowrap">Home</a>
+        <a href="#" class="text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors whitespace-nowrap">About</a>
+        <a href="#" class="text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors whitespace-nowrap">Projects</a>
+        <div class="menu">
+          <button class="menu-button">
+            More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-item">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Home
+            </div>
+            <div class="menu-item">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              About
+            </div>
+            <div class="menu-item">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              Projects
+            </div>
+            <div class="menu-item">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Contact
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary whitespace-nowrap">Get Started</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="text-6xl font-bold mb-6">
+          <span class="gradient-text">Creative</span> Solutions
+          <br>for Digital
+          <br>Experiences
+        </h1>
+        <p class="text-lg text-[var(--color-muted)] mb-8">
+          Transforming ideas into exceptional digital experiences. Specializing in web development, UI/UX design, and creative solutions.
+        </p>
+        <div class="flex gap-4">
+          <button class="btn btn-primary">View Projects</button>
+          <button class="btn btn-ghost">Learn More</button>
+        </div>
+      </div>
+      <div class="hero-canvas">
+        <canvas id="heroCanvas"></canvas>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)]">Typography</h2>
+      <div class="space-y-4">
+        <div>
+          <h1 class="text-5xl font-bold">Heading 1</h1>
+          <p class="text-sm text-[var(--color-muted)]">Oferta do Dia / 5xl / Bold</p>
+        </div>
+        <div>
+          <h2 class="text-4xl font-semibold">Heading 2</h2>
+          <p class="text-sm text-[var(--color-muted)]">Oferta do Dia / 4xl / Semibold</p>
+        </div>
+        <div>
+          <h3 class="text-3xl font-medium">Heading 3</h3>
+          <p class="text-sm text-[var(--color-muted)]">Oferta do Dia / 3xl / Medium</p>
+        </div>
+        <div>
+          <p class="text-lg">Body Large - Inter / 1.125rem / Regular</p>
+          <p class="text-sm text-[var(--color-muted)]">Inter / 1.125rem / Regular</p>
+        </div>
+        <div>
+          <p class="text-base">Body Regular - Inter / 1rem / Regular</p>
+          <p class="text-sm text-[var(--color-muted)]">Inter / 1rem / Regular</p>
+        </div>
+        <div>
+          <p class="text-sm">Body Small - Inter / 0.875rem / Regular</p>
+          <p class="text-sm text-[var(--color-muted)]">Inter / 0.875rem / Regular</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Color Palette</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="h-20 rounded-md bg-[var(--color-accent)] flex items-center justify-center">Accent</div>
+        <div class="h-20 rounded-md bg-[var(--color-secondary)] flex items-center justify-center">Secondary</div>
+        <div class="h-20 rounded-md bg-[var(--color-highlight)] flex items-center justify-center">Highlight</div>
+        <div class="h-20 rounded-md bg-[var(--color-muted)] flex items-center justify-center">Muted</div>
+        <div class="h-20 rounded-md bg-[var(--color-fg)] text-black flex items-center justify-center">Foreground</div>
+      </div>
+    </section>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-2xl font-semibold text-[var(--color-accent)]">Projects</h2>
+        <p class="text-[var(--color-muted)] mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <div class="glow-box">
+        <h3 class="font-semibold">Project Name</h3>
+        <p class="text-sm text-[var(--color-muted)]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</p>
+        <button class="mt-2 px-4 py-1 text-sm font-medium rounded-md border border-[var(--color-muted)] hover:border-white transition">View Details</button>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Buttons</h2>
+      <div class="space-y-8">
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Primary Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary btn-lg">Large</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Secondary Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-secondary btn-sm">Small</button>
+            <button class="btn btn-secondary btn-lg">Large</button>
+            <button class="btn btn-secondary" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Accent Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-accent">Accent</button>
+            <button class="btn btn-accent btn-sm">Small</button>
+            <button class="btn btn-accent btn-lg">Large</button>
+            <button class="btn btn-accent" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Outline Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-outline">Outline</button>
+            <button class="btn btn-outline btn-sm">Small</button>
+            <button class="btn btn-outline btn-lg">Large</button>
+            <button class="btn btn-outline" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Ghost Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-ghost btn-sm">Small</button>
+            <button class="btn btn-ghost btn-lg">Large</button>
+            <button class="btn btn-ghost" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Icon Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-primary btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+            <button class="btn btn-secondary btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <button class="btn btn-accent btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Form Elements</h2>
+      <div class="space-y-6 max-w-md">
+        <div class="glow-box">
+          <input type="text" placeholder="Text Input" class="bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-slate-500">
+        </div>
+        <div class="glow-box">
+          <input type="email" placeholder="Email Input" class="bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-slate-500">
+        </div>
+        <div class="glow-box">
+          <textarea placeholder="Textarea" rows="4" class="bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-slate-500 resize-none"></textarea>
+        </div>
+        <div class="glow-box">
+          <select class="bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-slate-500 w-full">
+            <option>Select Option</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4">
+          <input type="checkbox" class="w-4 h-4 rounded border-[var(--color-muted)] bg-transparent">
+          <label>Checkbox</label>
+        </div>
+        <div class="flex items-center gap-4">
+          <input type="radio" name="radio" class="w-4 h-4 rounded-full border-[var(--color-muted)] bg-transparent">
+          <label>Radio Button</label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Cards</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glow-box">
+          <h3 class="text-xl font-semibold mb-2">Basic Card</h3>
+          <p class="text-[var(--color-muted)]">A simple card with a title and description.</p>
+        </div>
+        <div class="glow-box">
+          <div class="aspect-video bg-[var(--color-muted)] rounded-md mb-4"></div>
+          <h3 class="text-xl font-semibold mb-2">Card with Image</h3>
+          <p class="text-[var(--color-muted)] mb-4">A card featuring an image with content below.</p>
+          <button class="btn btn-secondary">Learn More</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Alerts</h2>
+      <div class="space-y-4 max-w-md">
+        <div class="glow-box bg-[var(--color-accent)]/10">
+          <p class="text-[var(--color-accent)]">Success Alert</p>
+        </div>
+        <div class="glow-box bg-[var(--color-secondary)]/10">
+          <p class="text-[var(--color-secondary)]">Info Alert</p>
+        </div>
+        <div class="glow-box bg-[var(--color-highlight)]/10">
+          <p class="text-[var(--color-highlight)]">Warning Alert</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold text-[var(--color-accent)] mb-4">Contact</h2>
+      <form class="space-y-4 max-w-md">
+        <div class="glow-box">
+          <input type="text" placeholder="Name" class="w-full rounded-md bg-transparent border-none px-4 py-2 text-sm placeholder-[var(--color-muted)]
+          ">
+        </div>
+        <div class="glow-box">
+          <input type="email" placeholder="Email" class="w-full rounded-md bg-transparent border-none px-4 py-2 text-sm placeholder-[var(--color-muted)]
+          ">
+        </div>
+        <div class="glow-box">
+          <textarea placeholder="Message" rows="4" required class="w-full rounded-md bg-transparent border-none px-4 py-2 text-sm placeholder-[var(--color-muted)]
+           hover:ring-1 hover:ring-[var(--color-accent)] invalid:ring-1 invalid:ring-pink-500 resize-none disabled:opacity-40 disabled:cursor-not-allowed"></textarea>
+        </div>
+        <button type="submit" class="w-full rounded-md bg-white text-black py-2 text-sm font-medium hover:opacity-90">Send Message</button>
+      </form>
+    </section>
+
+    <footer class="pt-10 text-sm text-[var(--color-muted)] glow-divider relative text-center">
+      &copy; 2024 Guisso. All rights reserved.
+    </footer>
+  </div>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.160.1/build/three.module.js';
+
+    const canvas = document.getElementById('heroCanvas');
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas,
+      antialias: true,
+      alpha: true
+    });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.z = 5;
+
+    // Create a group to hold all elements
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Create material with enhanced reflections
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x000000,
+      specular: 0x888888,
+      shininess: 200,
+      transparent: true,
+      opacity: 0.95,
+      reflectivity: 1.0
+    });
+
+    // Create single ring
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(2.1, 0.1, 32, 100),
+      material
+    );
+    group.add(ring);
+
+    // Create pyramid group
+    const pyramidGroup = new THREE.Group();
+    pyramidGroup.scale.set(0.8, 0.8, 0.8);
+    group.add(pyramidGroup);
+
+    // Create pyramid (solid base, flat shaded)
+    const geometry = new THREE.ConeGeometry(1.5, 2, 4);
+    geometry.computeVertexNormals(); // ensure normals are calculated
+    geometry.rotateX(Math.PI);
+    const pyramid = new THREE.Mesh(geometry, material);
+    pyramidGroup.add(pyramid);
+
+    // Enhanced lighting setup
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+    scene.add(ambientLight);
+
+    // Main point light that follows mouse
+    const mainLight = new THREE.PointLight(0xaaaaaa, 1.5, 100);
+    mainLight.position.set(0, -5, 0); // Position below the cone
+    scene.add(mainLight);
+
+    // Additional light above the cone
+    const topLight = new THREE.PointLight(0xbbbbbb, 1.0, 100);
+    topLight.position.set(1, 1, 1); // Position above the cone
+    scene.add(topLight);
+
+    // Accent lights using root colors
+    const accentLight1 = new THREE.PointLight(0x00FF7F, 1.0, 50); // accent color
+    accentLight1.position.set(-5, -5, 5);
+    scene.add(accentLight1);
+
+    const accentLight2 = new THREE.PointLight(0x9A1AFF, 1.0, 50); // secondary color
+    accentLight2.position.set(5, -5, -5);
+    scene.add(accentLight2);
+
+    const accentLight3 = new THREE.PointLight(0x6E6EFF, 1.0, 50); // highlight color
+    accentLight3.position.set(-5, 5, -5);
+    scene.add(accentLight3);
+
+    // Rim lights for better edge definition
+    const rimLight1 = new THREE.DirectionalLight(0xffffff, 0.1);
+    rimLight1.position.set(0, -5, 5); // Adjusted to be below
+    scene.add(rimLight1);
+
+    const rimLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+    rimLight2.position.set(0, -5, -5); // Adjusted to be below
+    scene.add(rimLight2);
+
+    // Create blur effect lights
+    const blurLight1 = new THREE.PointLight(0x00FF7F, 0.6, 30);
+    blurLight1.position.set(3, 3, 3);
+    scene.add(blurLight1);
+
+    const blurLight2 = new THREE.PointLight(0x9A1AFF, 0.6, 30);
+    blurLight2.position.set(-3, -3, 3);
+    scene.add(blurLight2);
+
+    // Add light helpers for debugging (optional)
+    // const helper1 = new THREE.PointLightHelper(blurLight1, 1);
+    // const helper2 = new THREE.PointLightHelper(blurLight2, 1);
+    // const helper3 = new THREE.PointLightHelper(mainLight, 1);
+    // const helper4 = new THREE.PointLightHelper(accentLight1, 1);
+    // const helper5 = new THREE.PointLightHelper(accentLight2, 1);
+    // const helper6 = new THREE.PointLightHelper(accentLight3, 1);
+    // const helper7 = new THREE.PointLightHelper(topLight, 1);
+    // scene.add(helper1);
+    // scene.add(helper2);
+    // scene.add(helper3);
+    // scene.add(helper4);
+    // scene.add(helper5);
+    // scene.add(helper6);
+    // scene.add(helper7);
+
+    // Slower animation with smoother easing
+    gsap.timeline({
+      repeat: -1
+    })
+    .to(ring.rotation, {
+      z: "+=6.28319",
+      x: "+=6.28319",
+      duration: 8,
+      ease: "power1.inOut"
+    }, 0)
+    .to(group.rotation, {
+      y: 6.28319,
+      duration: 8,
+      ease: "power1.inOut"
+    }, 0)
+    .to(pyramidGroup.rotation, {
+      x: "+=6.28319",
+      y: "+=6.28319",
+      duration: 8,
+      ease: "power1.inOut"
+    }, 0);
+
+    // Enhanced mouse interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+    let currentRotationX = 0;
+    let currentRotationY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = (e.clientX - rect.left) / canvas.clientWidth;
+      mouseY = (e.clientY - rect.top) / canvas.clientHeight;
+      
+      // Update light positions based on mouse
+      mainLight.position.x = (mouseX - 0.5) * 10;
+      mainLight.position.z = (mouseY - 0.5) * 10;
+      
+      // Update top light position (opposite of main light)
+      topLight.position.x = - mouseX * 10;
+      topLight.position.z = - mouseY * 10;
+      
+      // Update blur light positions
+      blurLight1.position.x = (mouseX - 0.5) * 6;
+      blurLight1.position.z = (mouseY - 0.5) * 6;
+      blurLight2.position.x = -(mouseX - 0.5) * 6;
+      blurLight2.position.z = -(mouseY - 0.5) * 6;
+      
+      // Calculate target rotation based on mouse position
+      targetRotationX = (mouseY - 0.5) * 0.5;
+      targetRotationY = (mouseX - 0.5) * 0.5;
+    });
+
+    // Improved resize handling
+    function handleResize() {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      
+      // Adjust camera position based on aspect ratio
+      if (width > height) {
+        camera.position.z = 5;
+      } else {
+        camera.position.z = 7;
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // Animation loop with smooth rotation
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Smoothly interpolate rotation
+      currentRotationX += (targetRotationX - currentRotationX) * 0.05;
+      currentRotationY += (targetRotationY - currentRotationY) * 0.05;
+      
+      // Apply rotation to the pyramid group
+      pyramidGroup.rotation.x = currentRotationX;
+      pyramidGroup.rotation.y = currentRotationY;
+      
+      // Animate blur lights
+      const time = Date.now() * 0.001;
+      blurLight1.position.y += Math.sin(time) * 0.02;
+      blurLight2.position.y += Math.cos(time) * 0.02;
+      
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
